@@ -1,12 +1,12 @@
 import { Box, Button, Container, Typography } from '@mui/material';
-import { add, Scenario, selectAllScenarios } from './components/Scenario';
+import { add, Scenario, selectAllScenarios, selectAllScenariosIds } from './components/Scenario';
 import { useAppDispatch, useAppSelector } from './hooks';
 
 function App() {
-  const bddScenarios = useAppSelector(selectAllScenarios);
+  const bddScenarios = useAppSelector(selectAllScenariosIds);
   const dispatch = useAppDispatch();
 
-  const addScenario = () => dispatch(add({ id: '' + Date.now(), title: '<title placeholder>' }))
+  const addScenario = () => dispatch(add())
 
   return (
     <Container maxWidth="md">
@@ -15,9 +15,9 @@ function App() {
           BDD Acceptance criteria
         </Typography>
       </Box>
-      <Button onClick={addScenario}>Add scenario</Button>
+      <Button onClick={addScenario}>New scenario</Button>
 
-      {bddScenarios.map(({ title, id }) => <Scenario key={id} title={title} />)}
+      {bddScenarios.map((id) => <Scenario key={id} id={id} />)}
 
     </Container>
   );
