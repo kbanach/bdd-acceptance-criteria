@@ -1,1 +1,2 @@
-export * from './Scenario'
+export * from './Scenario';
+export * from './scenariosSlice';
