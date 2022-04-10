@@ -1,0 +1,21 @@
+.scenario {
+    position: relative;
+    padding: 0 1rem 1rem;
+    border-radius: 0.2rem;
+
+    &__delete-button {
+        position: absolute;
+        bottom: 1rem;
+        right: 0.5rem;
+        display: none;
+    }
+
+    &:hover &__delete-button {
+        display: block;
+    }
+
+    &:hover {
+        background-color: rgba(0,0,0, 0.05);
+        outline: 1px dashed rgba(0,0,0, 0.2);
+    }
+}

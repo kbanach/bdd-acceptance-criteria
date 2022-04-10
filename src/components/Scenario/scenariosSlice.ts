@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BooleanLiteral } from "typescript";
 import { RootState } from "../../store";
 
 export interface IScenario {
@@ -41,10 +40,13 @@ export const scenariosSlice = createSlice({
                 ...action.payload,
             };
         },
+        remove: (state, action: PayloadAction<IScenario['id']>) => {
+            delete state[action.payload];
+        },
     }
 });
 
-export const { add, update } = scenariosSlice.actions;
+export const { add, update, remove } = scenariosSlice.actions;
 
 export const selectAllScenarios = (state: RootState) => Object.values(state.scenarios);
 export const selectAllScenariosIds = (state: RootState) => Object.keys(state.scenarios);

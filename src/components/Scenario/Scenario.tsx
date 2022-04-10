@@ -1,8 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks";
-import { BddLine } from "./BddLine";
 import { ScenarioEditMode } from "./ScenarioEditMode";
-import { IScenario, selectById } from "./scenariosSlice";
+import { IScenario, selectById, update, remove } from "./scenariosSlice";
+import './Scenario.scss';
 
 interface ScenarioProps {
     id: IScenario['id'];
@@ -10,35 +11,25 @@ interface ScenarioProps {
 
 export const Scenario = ({ id }: ScenarioProps) => {
     const scenario = useAppSelector((state) => selectById(state, id));
+    const dispatch = useDispatch();
+    const startEdit = () => dispatch(update({ id, isEdited: true }));
+    const finishEdit = () => dispatch(update({ id, isEdited: false }));
+    const removeScenario = () => dispatch(remove( id ));
 
     if (scenario === null) {
         return <Box>No such scenario found.</Box>
     }
 
-    const {
-        title,
-        isEdited,
-    } = scenario;
-
-    if (isEdited) {
-        return <ScenarioEditMode id={id} />
-    }
+    const { isEdited } = scenario;
 
     return (
-        <Box>
-            <Typography variant="h3">{title}</Typography>
-            <BddLine
-                title="Given"
-                content="Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem"
-            />
-            <BddLine
-                title="When"
-                content="Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem"
-            />
-            <BddLine
-                title="Then"
-                content="Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem"
-            />
-        </Box>
+        <div className="scenario">
+            <ScenarioEditMode id={id} onClick={startEdit} />
+            {(isEdited === true) && <Button variant="contained" onClick={finishEdit}>Save</Button>}
+
+            <div className="scenario__delete-button">
+                <Button variant="contained" color="error" onClick={removeScenario}>Delete</Button>
+            </div>
+        </div>
     );
 }
