@@ -14,7 +14,8 @@ export const Scenario = ({ id }: ScenarioProps) => {
     const dispatch = useDispatch();
     const startEdit = () => dispatch(update({ id, isEdited: true }));
     const finishEdit = () => dispatch(update({ id, isEdited: false }));
-    const removeScenario = () => dispatch(remove( id ));
+    const removeScenario = () => dispatch(remove(id));
+    const copyAsJira = () => console.log('IMPLEMENT ME');
 
     if (scenario === null) {
         return <Box>No such scenario found.</Box>
@@ -27,7 +28,8 @@ export const Scenario = ({ id }: ScenarioProps) => {
             <ScenarioEditMode id={id} onClick={startEdit} />
             {(isEdited === true) && <Button variant="contained" onClick={finishEdit}>Save</Button>}
 
-            <div className="scenario__delete-button">
+            <div className="scenario__hover-buttons">
+                <Button variant="outlined" color="primary" onClick={copyAsJira}>Copy as JIRA</Button>
                 <Button variant="contained" color="error" onClick={removeScenario}>Delete</Button>
             </div>
         </div>

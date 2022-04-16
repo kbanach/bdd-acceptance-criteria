@@ -6,9 +6,14 @@ export interface IScenario {
     title: string;
     isEdited: boolean;
     given: string;
+    givenAnds: string[],
     when: string;
+    whenAnds: string[],
     then: string;
+    thenAnds: string[],
 }
+
+type IArrayTypes = Pick<IScenario, "givenAnds" | "whenAnds" | "thenAnds">;
 
 type ScenariosState = Record<IScenario['id'], IScenario>;
 
@@ -17,8 +22,11 @@ const initialState: ScenariosState = {};
 const emptyScenario = {
     title: '',
     given: '',
+    givenAnds: [],
     when: '',
+    whenAnds: [],
     then: '',
+    thenAnds: [],
 };
 
 export const scenariosSlice = createSlice({
@@ -34,19 +42,28 @@ export const scenariosSlice = createSlice({
                 isEdited: true,
             };
         },
-        update: (state, action: PayloadAction<Partial<IScenario> & { id: IScenario['id'] }>) => {
+        addAnd: (state, action: PayloadAction<{ id: IScenario['id'], type: keyof IArrayTypes, value: string }>) => {
+            state[action.payload.id][action.payload.type].push(action.payload.value);
+        },
+        update: (state, action: PayloadAction<Partial<Omit<IScenario, "givenAnds" | "whenAnds" | "thenAnds">> & { id: IScenario['id'] }>) => {
             state[action.payload.id] = {
                 ...state[action.payload.id],
                 ...action.payload,
             };
         },
+        updateAnd: (state, action: PayloadAction<{ id: IScenario['id'], type: keyof IArrayTypes, andIdx: number, value: string }>) => {
+            state[action.payload.id][action.payload.type][action.payload.andIdx] = action.payload.value;
+        },
         remove: (state, action: PayloadAction<IScenario['id']>) => {
             delete state[action.payload];
         },
+        removeAnd: (state, action: PayloadAction<{ id: IScenario['id'], type: keyof IArrayTypes, andIdx: number }>) => {
+            state[action.payload.id][action.payload.type].splice(action.payload.andIdx, 1);
+        }
     }
 });
 
-export const { add, update, remove } = scenariosSlice.actions;
+export const { add, addAnd, update, updateAnd, remove, removeAnd } = scenariosSlice.actions;
 
 export const selectAllScenarios = (state: RootState) => Object.values(state.scenarios);
 export const selectAllScenariosIds = (state: RootState) => Object.keys(state.scenarios);
