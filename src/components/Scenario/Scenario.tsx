@@ -1,7 +1,7 @@
 import { Box, Button, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks";
-import { ScenarioEditMode } from "./ScenarioEditMode";
+import { ScenarioEditor } from "./ScenarioEditor";
 import { IScenario, selectById, update, remove } from "./scenariosSlice";
 import './Scenario.scss';
 
@@ -25,7 +25,7 @@ export const Scenario = ({ id }: ScenarioProps) => {
 
     return (
         <div className="scenario">
-            <ScenarioEditMode id={id} onClick={startEdit} />
+            <ScenarioEditor id={id} onClick={startEdit} />
             {(isEdited === true) && <Button variant="contained" onClick={finishEdit}>Save</Button>}
 
             <div className="scenario__hover-buttons">

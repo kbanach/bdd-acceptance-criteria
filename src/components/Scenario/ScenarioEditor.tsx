@@ -14,7 +14,7 @@ interface ScenarioEditModeProps {
 }
 
 
-export const ScenarioEditMode = ({ id, onClick = () => { } }: ScenarioEditModeProps) => {
+export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProps) => {
     const {
         title,
         isEdited,
@@ -49,7 +49,7 @@ export const ScenarioEditMode = ({ id, onClick = () => { } }: ScenarioEditModePr
                 <Typography sx={{ fontSize: theme.typography.h2 }} variant='h2'>{title || <Placeholder>no title</Placeholder>}</Typography>
             )}
 
-{(isEdited) && (<><br /><br /></>)}
+            {(isEdited) && (<><br /><br /></>)}
 
             <BddLine
                 isEdited={isEdited}
@@ -87,7 +87,7 @@ export const ScenarioEditMode = ({ id, onClick = () => { } }: ScenarioEditModePr
                 />
             ))}
 
-{(isEdited) && (<br />)}
+            {(isEdited) && (<br />)}
 
             <BddLine
                 isEdited={isEdited}
@@ -126,7 +126,7 @@ export const ScenarioEditMode = ({ id, onClick = () => { } }: ScenarioEditModePr
                 />
             ))}
 
-{(isEdited) && (<br />)}
+            {(isEdited) && (<br />)}
 
             <BddLine
                 isEdited={isEdited}
@@ -165,7 +165,7 @@ export const ScenarioEditMode = ({ id, onClick = () => { } }: ScenarioEditModePr
                 />
             ))}
 
-{(isEdited) && (<br />)}
+            {(isEdited) && (<br />)}
 
         </Box>
     );
