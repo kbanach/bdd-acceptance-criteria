@@ -22,8 +22,8 @@ export const BddLine = ({ isEdited = false, title, content, placeholder = '', on
 
     return (
         <Grid container>
-        <Grid item xs={1}><Box fontWeight={theme.typography.fontWeightBold}>{title}</Box></Grid>
-            <Grid item xs={2}>{(isEdited && button) && (button)}</Grid>
+            <Grid item xs={1}><Box fontWeight={theme.typography.fontWeightBold}>{title}</Box></Grid>
+
             <Grid item xs={9}>{
                 (isEdited === true) ? (
                     <TextField
@@ -36,6 +36,8 @@ export const BddLine = ({ isEdited = false, title, content, placeholder = '', on
                 ) :
                     content || <Placeholder>{placeholder}</Placeholder>
             }</Grid>
+
+            <Grid item xs={2}  container justifyContent="flex-end">{(isEdited && button) && (button)}</Grid>
         </Grid>
     );
 }
