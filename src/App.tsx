@@ -1,6 +1,6 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { add, Scenario, selectAllScenariosIds } from './components/Scenario';
-import { ScenariosTools } from './components/ScenariosTools/ScenariosTools';
+import { ScenariosTools } from './components/ScenariosTools/';
 import { useAppDispatch, useAppSelector } from './hooks';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <ScenariosTools />
 
       {bddScenariosIds.map((id) => <Scenario key={id} id={id} />)}
-      
+
       {bddScenariosIds.length > 0 && <ScenariosTools />}
     </Container>
   );

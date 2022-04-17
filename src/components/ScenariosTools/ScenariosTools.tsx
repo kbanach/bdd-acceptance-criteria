@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { scenarioToJiraSyntax } from "../../utils";
 import { add } from "../Scenario";
-import { selectAllScenarios } from "../Scenario/scenariosSlice";
+import { clearAll, selectAllScenarios } from "../Scenario/scenariosSlice";
+import { Notification } from '../Notification'
 
 
 function copyToClipboard(text: string): void {
@@ -14,34 +15,29 @@ export const ScenariosTools = () => {
     const allScenarios = useAppSelector((state) => selectAllScenarios(state));
     const dispatch = useAppDispatch();
     const addScenario = () => dispatch(add());
+    const removeAll = () => dispatch(clearAll());
 
-    const [openClipboardSuccess, setOpenClipboardSuccess] = useState<boolean>(false);
+    const [showNotification, setShowNotification] = useState<boolean>(false);
 
     const copyAllAsJira = () => {
         const allScenariosJira = allScenarios.map(scenarioToJiraSyntax).join('\n\n')
 
         copyToClipboard(allScenariosJira);
-        setOpenClipboardSuccess(true);
+        setShowNotification(true);
     };
 
-    const handleClipboardSuccessClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpenClipboardSuccess(false);
-    }
-
-
     return (<>
-        <Snackbar open={openClipboardSuccess} autoHideDuration={3000} onClose={handleClipboardSuccessClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-            <Alert onClose={handleClipboardSuccessClose} severity="success" sx={{ width: '100%' }}>
-                Copied to clipboard!
-            </Alert>
-        </Snackbar>
+        <Notification
+            showNotification={showNotification}
+            onClose={() => setShowNotification(false)}
+        >
+            Copied to clipboard!
+        </Notification>
 
         <Button onClick={addScenario} variant="outlined">New scenario</Button>
         {' '}
         <Button onClick={copyAllAsJira} variant="outlined">Copy all as Jira</Button>
+        {' '}
+        <Button onClick={removeAll} variant="contained" color="error">Delete all</Button>
     </>);
 }

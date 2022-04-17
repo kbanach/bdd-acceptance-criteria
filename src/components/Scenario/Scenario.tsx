@@ -6,6 +6,7 @@ import { IScenario, selectById, update, remove } from "./scenariosSlice";
 import './Scenario.scss';
 import { scenarioToJiraSyntax } from "../../utils";
 import { useState } from "react";
+import { Notification } from '../Notification';
 
 interface ScenarioProps {
     id: IScenario['id'];
@@ -22,20 +23,12 @@ export const Scenario = ({ id }: ScenarioProps) => {
     const finishEdit = () => dispatch(update({ id, isEdited: false }));
     const removeScenario = () => dispatch(remove(id));
 
-    const [openClipboardSuccess, setOpenClipboardSuccess] = useState<boolean>(false);
+    const [showNotification, setShowNotification] = useState<boolean>(false);
 
     const copyAsJira = () => {
         copyToClipboard(scenarioToJiraSyntax(scenario));
-        setOpenClipboardSuccess(true);
+        setShowNotification(true);
     };
-
-    const handleClipboardSuccessClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpenClipboardSuccess(false);
-    }
 
     if (scenario === null) {
         return <Box>No such scenario found.</Box>
@@ -45,11 +38,9 @@ export const Scenario = ({ id }: ScenarioProps) => {
 
     return (
         <div className="scenario">
-            <Snackbar open={openClipboardSuccess} autoHideDuration={3000} onClose={handleClipboardSuccessClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-                <Alert onClose={handleClipboardSuccessClose} severity="success" sx={{ width: '100%' }}>
-                    Copied to clipboard!
-                </Alert>
-            </Snackbar>
+            <Notification showNotification={showNotification} onClose={() => setShowNotification(false)}>
+                Copied to clipboard!
+            </Notification>
 
             <ScenarioEditor id={id} onClick={startEdit} />
             {(isEdited === true) && <Button variant="contained" onClick={finishEdit}>Save</Button>}

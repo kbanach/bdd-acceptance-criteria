@@ -1,5 +1,8 @@
 import { IScenario } from "../components/Scenario/scenariosSlice";
 
+// header 1
+const h1 = (text: string) => `h1. ${text}`;
+
 // bold
 const b = (text: string) => `*${text}*`;
 
@@ -7,6 +10,8 @@ const b = (text: string) => `*${text}*`;
 const i = (text: string) => `_${text}_`;
 
 export const scenarioToJiraSyntax = (scenario: IScenario): string => {
+    const title = h1(scenario.title);
+
     const given = `${b('Given')} ${i(scenario.given)}`;
     const givenAnds: string[] = scenario.givenAnds.map(and => `${b('And')} ${i(and)}`);
 
@@ -17,6 +22,7 @@ export const scenarioToJiraSyntax = (scenario: IScenario): string => {
     const thenAnds: string[] = scenario.thenAnds.map(and => `${b('And')} ${i(and)}`);
 
     return [
+        title,
         given,
         ...givenAnds,
         when,

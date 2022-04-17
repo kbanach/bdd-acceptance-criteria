@@ -4,7 +4,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import theme from "../../theme";
 import { BddLine } from "./BddLine";
-import { BddOptionalLine } from "./BddLine/BddOptionalLine";
 import { Placeholder } from "./Placeholder";
 import { addAnd, IScenario, removeAnd, selectById, update, updateAnd } from "./scenariosSlice";
 
@@ -12,7 +11,6 @@ interface ScenarioEditModeProps {
     id: IScenario['id'];
     onClick: () => void;
 }
-
 
 export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProps) => {
     const {
@@ -68,7 +66,7 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
                 }
             />
             {givenAnds.map((and, idx) => (
-                <BddOptionalLine
+                <BddLine
                     key={`given-and-${and}-${idx}`}
                     isEdited={isEdited}
                     onChange={(newGiven) => updateGivenAnd(idx, newGiven)}
@@ -107,7 +105,7 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
             />
 
             {whenAnds.map((and, idx) => (
-                <BddOptionalLine
+                <BddLine
                     key={`when-and-${and}-${idx}`}
                     isEdited={isEdited}
                     onChange={(newWhen) => updateWhenAnd(idx, newWhen)}
@@ -146,7 +144,7 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
             />
 
             {thenAnds.map((and, idx) => (
-                <BddOptionalLine
+                <BddLine
                     key={`then-and-${and}-${idx}`}
                     isEdited={isEdited}
                     onChange={(newThen) => updateThenAnd(idx, newThen)}

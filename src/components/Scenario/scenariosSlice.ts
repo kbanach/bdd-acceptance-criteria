@@ -59,11 +59,17 @@ export const scenariosSlice = createSlice({
         },
         removeAnd: (state, action: PayloadAction<{ id: IScenario['id'], type: keyof IArrayTypes, andIdx: number }>) => {
             state[action.payload.id][action.payload.type].splice(action.payload.andIdx, 1);
+        },
+        clearAll: (state) => {
+            const allScenariosKeys = Object.keys(state);
+            for (let key of allScenariosKeys) {
+                delete state[key];
+            }
         }
     }
 });
 
-export const { add, addAnd, update, updateAnd, remove, removeAnd } = scenariosSlice.actions;
+export const { add, addAnd, update, updateAnd, remove, removeAnd, clearAll } = scenariosSlice.actions;
 
 export const selectAllScenarios = (state: RootState) => Object.values(state.scenarios);
 export const selectAllScenariosIds = (state: RootState) => Object.keys(state.scenarios);
