@@ -77,8 +77,7 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
                         <Button
                             size="small"
                             onClick={() => removeGivenAndOnIndex(idx)}
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}>
+                            variant="outlined">
                             Remove
                         </Button>
                     }
@@ -116,8 +115,7 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
                         <Button
                             size="small"
                             onClick={() => removeWhenAndOnIndex(idx)}
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}>
+                            variant="outlined">
                             Remove
                         </Button>
                     }
@@ -155,8 +153,7 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
                         <Button
                             size="small"
                             onClick={() => removeThenAndOnIndex(idx)}
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}>
+                            variant="outlined">
                             Remove
                         </Button>
                     }

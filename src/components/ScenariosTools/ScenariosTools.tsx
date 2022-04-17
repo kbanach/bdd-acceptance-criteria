@@ -1,4 +1,7 @@
-import { Alert, Button, Snackbar } from "@mui/material";
+import { Button } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import DeleteSharp from '@mui/icons-material/DeleteSharp';
+import FileCopy from '@mui/icons-material/FileCopy';
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { scenarioToJiraSyntax } from "../../utils";
@@ -34,10 +37,16 @@ export const ScenariosTools = () => {
             Copied to clipboard!
         </Notification>
 
-        <Button onClick={addScenario} variant="outlined">New scenario</Button>
+        <Button
+            onClick={addScenario}
+            variant="outlined"
+            startIcon={<AddIcon />}
+        >
+            New scenario
+        </Button>
         {' '}
-        <Button onClick={copyAllAsJira} variant="outlined">Copy all as Jira</Button>
+        <Button onClick={copyAllAsJira} variant="outlined" startIcon={<FileCopy />}>Copy all as Jira</Button>
         {' '}
-        <Button onClick={removeAll} variant="contained" color="error">Delete all</Button>
+        <Button onClick={removeAll} variant="contained" color="error" startIcon={<DeleteSharp />}>Delete all</Button>
     </>);
 }
