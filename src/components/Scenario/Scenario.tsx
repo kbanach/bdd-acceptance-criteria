@@ -46,7 +46,7 @@ export const Scenario = ({ id }: ScenarioProps) => {
             {(isEdited === true) && <Button variant="contained" onClick={finishEdit}>Save</Button>}
 
             <div className="scenario__hover-buttons">
-                <Button variant="outlined" color="primary" onClick={copyAsJira}>Copy as JIRA</Button>
+                <Button variant="outlined" color="primary" onClick={copyAsJira}>Copy as JIRA text</Button>
                 {' '}
                 <Button variant="contained" color="error" onClick={removeScenario}>Delete</Button>
             </div>

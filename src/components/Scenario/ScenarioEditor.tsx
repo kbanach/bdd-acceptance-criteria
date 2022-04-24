@@ -15,6 +15,7 @@ interface ScenarioEditModeProps {
 export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProps) => {
     const {
         title,
+        description,
         isEdited,
         given,
         givenAnds,
@@ -42,12 +43,30 @@ export const ScenarioEditor = ({ id, onClick = () => { } }: ScenarioEditModeProp
     return (
         <Box onClick={onClick}>
             {(isEdited === true) ? (
-                <TextField size="medium" variant="standard" value={title} onChange={(e) => updateScenario({ title: e.target.value })} fullWidth />
+                <TextField
+                    size="medium"
+                    variant="standard"
+                    value={title}
+                    onChange={(e) => updateScenario({ title: e.target.value })}
+                    placeholder={'title, e.g. Scenario #1'}
+                    fullWidth
+                />
             ) : (
                 <Typography sx={{ fontSize: theme.typography.h2 }} variant='h2'>{title || <Placeholder>no title</Placeholder>}</Typography>
             )}
 
             {(isEdited) && (<><br /><br /></>)}
+
+
+            <BddLine
+                isEdited={isEdited}
+                onChange={(newDescription) => updateScenario({ description: newDescription })}
+                title="Description"
+                content={description}
+                placeholder="(optional) describe the ticket"
+            />
+
+            {(isEdited) && (<br />)}
 
             <BddLine
                 isEdited={isEdited}

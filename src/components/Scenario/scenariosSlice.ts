@@ -4,6 +4,7 @@ import { RootState } from "../../store";
 export interface IScenario {
     id: string;
     title: string;
+    description: string;
     isEdited: boolean;
     given: string;
     givenAnds: string[],
@@ -21,6 +22,7 @@ const initialState: ScenariosState = {};
 
 const emptyScenario = {
     title: '',
+    description: '',
     given: '',
     givenAnds: [],
     when: '',

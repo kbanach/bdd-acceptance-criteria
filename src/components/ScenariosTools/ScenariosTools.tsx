@@ -45,7 +45,7 @@ export const ScenariosTools = () => {
             New scenario
         </Button>
         {' '}
-        <Button onClick={copyAllAsJira} variant="outlined" startIcon={<FileCopy />}>Copy all as Jira</Button>
+        <Button onClick={copyAllAsJira} variant="outlined" startIcon={<FileCopy />}>Copy all as JIRA text</Button>
         {' '}
         <Button onClick={removeAll} variant="contained" color="error" startIcon={<DeleteSharp />}>Delete all</Button>
     </>);

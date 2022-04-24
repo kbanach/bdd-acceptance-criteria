@@ -22,9 +22,9 @@ export const BddLine = ({ isEdited = false, title, content, placeholder = '', on
 
     return (
         <Grid container>
-            <Grid item xs={1}><Box fontWeight={theme.typography.fontWeightBold}>{title}</Box></Grid>
+            <Grid item xs={2}><Box fontWeight={theme.typography.fontWeightBold}>{title}</Box></Grid>
 
-            <Grid item xs={9}>{
+            <Grid item xs={8}>{
                 (isEdited === true) ? (
                     <TextField
                         size="small"
@@ -32,6 +32,7 @@ export const BddLine = ({ isEdited = false, title, content, placeholder = '', on
                         value={localValue}
                         onBlur={() => onChange(localValue)}
                         onChange={(e) => setLocalValue(e.target.value)}
+                        placeholder={placeholder}
                         fullWidth />
                 ) :
                     content || <Placeholder>{placeholder}</Placeholder>

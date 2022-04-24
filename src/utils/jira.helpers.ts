@@ -1,7 +1,7 @@
 import { IScenario } from "../components/Scenario/scenariosSlice";
 
-// header 1
-const h1 = (text: string) => `h1. ${text}`;
+// header 2
+const h2 = (text: string) => `h2. ${text}`;
 
 // bold
 const b = (text: string) => `*${text}*`;
@@ -9,25 +9,37 @@ const b = (text: string) => `*${text}*`;
 // italic
 const i = (text: string) => `_${text}_`;
 
+// add blue color
+const blue = (text: string) => `{color:#0747a6}${text}{color}`;
+
 export const scenarioToJiraSyntax = (scenario: IScenario): string => {
-    const title = h1(scenario.title);
+    const title = scenario.title ? h2(blue(scenario.title)) : '';
 
-    const given = `${b('Given')} ${i(scenario.given)}`;
-    const givenAnds: string[] = scenario.givenAnds.map(and => `${b('And')} ${i(and)}`);
+    const description = scenario.description ? i(scenario.description) : '';
 
-    const when = `${b('When')} ${i(scenario.when)}`;
-    const whenAnds: string[] = scenario.whenAnds.map(and => `${b('And')} ${i(and)}`);
+    const given = `${blue(b('Given'))} ${i(scenario.given)}`;
+    const givenAnds: string[] = scenario.givenAnds.map(and => `${blue(b('And'))} ${i(and)}`);
 
-    const then = `${b('Then')} ${i(scenario.then)}`;
-    const thenAnds: string[] = scenario.thenAnds.map(and => `${b('And')} ${i(and)}`);
+    const when = `${blue(b('When'))} ${i(scenario.when)}`;
+    const whenAnds: string[] = scenario.whenAnds.map(and => `${blue(b('And'))} ${i(and)}`);
+
+    const then = `${blue(b('Then'))} ${i(scenario.then)}`;
+    const thenAnds: string[] = scenario.thenAnds.map(and => `${blue(b('And'))} ${i(and)}`);
 
     return [
         title,
+        title ? ' ' : '',
+
+        description,   
+        description ? ' ' : '',
+        
         given,
         ...givenAnds,
         when,
         ...whenAnds,
         then,
         ...thenAnds
-    ].join('\n');
+    ]
+        .filter(Boolean)
+        .join('\n');
 }
