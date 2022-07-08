@@ -30,7 +30,7 @@ export const BddLine = ({ isEdited = false, title, content, placeholder = '', on
                         size="small"
                         variant="standard"
                         value={localValue}
-                        onBlur={() => onChange(localValue)}
+                        onBlur={() => onChange(localValue.trim())}
                         onChange={(e) => setLocalValue(e.target.value)}
                         placeholder={placeholder}
                         fullWidth />
